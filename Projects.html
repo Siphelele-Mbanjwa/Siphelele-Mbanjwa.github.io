@@ -3,35 +3,407 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Projects - Siphelele Mbanjwa</title>
+  <title>Projects — Siphelele Mbanjwa</title>
   <link rel="stylesheet" href="style.css"/>
   <script defer src="JavaScript/MyDemoPortfolio.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:           #f0f2f5;
+      --surface:      #ffffff;
+      --surface-2:    #e2e8f0;
+      --border:       rgba(0,0,0,0.08);
+      --cyan:         #307ecc;
+      --cyan-dim:     rgba(48, 126, 204, 0.10);
+      --white:        #333333;
+      --muted:        #666666;
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(48, 126, 204, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(48, 126, 204, 0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(48, 126, 204, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 12px;
+    }
+
+    nav a {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: #ecf0f1;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 100px;
+      transition: color 0.2s, background 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    nav a:hover { color: #ecf0f1; background: rgba(255,255,255,0.15); }
+    nav a.active { color: #ffffff; background: rgba(255,255,255,0.2); font-weight: 700; }
+
+    /* ── Page header ── */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      padding: 160px 10vw 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.1s;
+    }
+
+    .page-eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--cyan);
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.25s;
+    }
+
+    .page-title .accent { color: var(--cyan); }
+
+    .project-count {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 18px;
+      white-space: nowrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.4s;
+      align-self: center;
+    }
+
+    /* ── Projects grid ── */
+    .projects-wrapper {
+      position: relative;
+      z-index: 1;
+      padding: 0 10vw 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    /* ── Project card (row style) ── */
+    .project-card {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 40px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 32px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+      margin-bottom: 12px;
+    }
+
+    .project-card:nth-child(1) { animation-delay: 0.35s; }
+    .project-card:nth-child(2) { animation-delay: 0.45s; }
+    .project-card:nth-child(3) { animation-delay: 0.55s; }
+
+    .project-card:hover {
+      background: var(--surface);
+      border-color: rgba(48,126,204,0.4);
+      box-shadow: 0 4px 20px rgba(48,126,204,0.1);
+      transform: translateX(6px);
+    }
+
+    /* ── Project number ── */
+    .project-number {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--muted);
+      width: 32px;
+      opacity: 0.5;
+    }
+
+    /* ── Project body ── */
+    .project-body {}
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      border: 1px solid rgba(48,126,204,0.15);
+      border-radius: 100px;
+      padding: 3px 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .project-name {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2vw, 26px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+
+    .project-card:hover .project-name { color: var(--cyan); }
+
+    .project-desc {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    /* ── Arrow ── */
+    .project-arrow {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .project-arrow svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--muted);
+      transition: stroke 0.2s, transform 0.2s;
+    }
+
+    .project-card:hover .project-arrow {
+      background: var(--cyan);
+      border-color: var(--cyan);
+      transform: rotate(-45deg);
+    }
+
+    .project-card:hover .project-arrow svg { stroke: #ffffff; }
+
+    /* ── CTA strip ── */
+    .cta-strip {
+      position: relative;
+      z-index: 1;
+      margin: 0 10vw 100px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 52px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .cta-text h3 {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.5vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .cta-text p {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cyan);
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(48, 126, 204, 0.3);
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: none; background: #2c3e50;
+      padding: 32px 10vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #ecf0f1;
+    }
+
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--cyan); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { top: 16px; padding: 6px 8px; }
+      nav a { padding: 7px 13px; font-size: 12px; }
+      .page-header { padding: 120px 6vw 48px; }
+      .projects-wrapper { padding: 0 6vw 60px; }
+      .project-card { grid-template-columns: 1fr; gap: 16px; padding: 24px; }
+      .project-number { display: none; }
+      .project-arrow { display: none; }
+      .cta-strip { margin: 0 6vw 60px; padding: 32px; flex-direction: column; align-items: flex-start; }
+      footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px 6vw; }
+    }
+  </style>
 </head>
 <body>
-  <header class="header">
-    <h1>My Projects</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="About.html">About</a>
-      <a href="Projects.html">Projects</a>
-      <a href="Contact.html">Contact</a>
-    </nav>
-  </header>
 
-  <main class="main-content fade-in">
-    <section>
-      <h2>Project List</h2>
-      <ul>
-        <li><strong>Tic Tac Toe Game</strong> – A simple game built using C# and Windows Forms</li>
-        <li><strong>School Database</strong> – SQL Server project using stored procedures and triggers</li>
-        <li><strong>Portfolio Website</strong> – This very site, built using HTML, CSS, and JavaScript</li>
-      </ul>
-    </section>
-  </main>
+  <!-- ── Navigation ── -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="About.html">About</a>
+    <a href="Projects.html" class="active">Projects</a>
+    <a href="Contact.html">Contact</a>
+  </nav>
 
+  <!-- ── Page Header ── -->
+  <div class="page-header">
+    <div>
+      <p class="page-eyebrow">What I've built</p>
+      <h1 class="page-title">My <span class="accent">Projects</span></h1>
+    </div>
+    <div class="project-count">1 project</div>
+  </div>
+
+  <!-- ── Projects ── -->
+  <div class="projects-wrapper">
+
+    <div class="project-card">
+      <div class="project-number">01</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <div class="project-name">Portfolio Website</div>
+        <div class="project-desc">This very site — a personal portfolio designed and built from scratch using HTML, CSS, and vanilla JavaScript with smooth animations and a modern dark aesthetic.</div>
+      </div>
+      <div class="project-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── CTA Strip ── -->
+  <div class="cta-strip">
+    <div class="cta-text">
+      <h3>Want to collaborate?</h3>
+      <p>I'm always open to new projects and ideas. Let's build something together.</p>
+    </div>
+    <a href="Contact.html" class="btn-primary">
+      Get In Touch
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- ── Footer ── */
   <footer>
-    <p>© 2025 Siphelele Mbanjwa. Built with ❤️</p>
+    <span>© 2025 Siphelele Mbanjwa</span>
+    <span>Built with ❤️ in Durban</span>
   </footer>
+
 </body>
 </html>

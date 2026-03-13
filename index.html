@@ -3,32 +3,421 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Siphelele's Portfolio</title>
+  <title>Siphelele Mbanjwa — Portfolio</title>
   <link rel="stylesheet" href="style.css"/>
   <script defer src="JavaScript/MyDemoPortfolio.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── CSS Variables ── */
+    :root {
+      --bg:        #f0f2f5;
+      --surface:   #ffffff;
+      --border:    rgba(0,0,0,0.08);
+      --cyan:      #307ecc;
+      --cyan-dim:  rgba(48, 126, 204, 0.12);
+      --white:     #333333;
+      --muted:     #666666;
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Animated background grid ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(48, 126, 204, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(48, 126, 204, 0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Glow blob ── */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(48,126,204,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(48, 126, 204, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 12px;
+    }
+
+    nav a {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: #ecf0f1;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 100px;
+      transition: color 0.2s, background 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--white);
+      background: rgba(255,255,255,0.07);
+    }
+
+    nav a.active {
+      color: var(--cyan);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 10vw;
+      gap: 0;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.2s;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--cyan);
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 9vw, 120px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero-name .accent {
+      color: var(--cyan);
+      display: block;
+    }
+
+    .hero-tagline {
+      margin-top: 28px;
+      font-size: clamp(15px, 1.5vw, 18px);
+      font-weight: 300;
+      color: #ecf0f1;
+      max-width: 440px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .hero-cta {
+      margin-top: 44px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cyan);
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(48, 126, 204, 0.3);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-2px);
+    }
+
+
+
+    /* ── Section ── */
+    .section-intro {
+      position: relative;
+      z-index: 1;
+      padding: 100px 10vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .section-body {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #ecf0f1;
+      font-weight: 300;
+    }
+
+    .section-body p + p { margin-top: 16px; }
+
+    /* ── Tech pills ── */
+    .tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .pill {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      border: 1px solid rgba(48,126,204,0.2);
+      border-radius: 100px;
+      padding: 6px 14px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: none; background: #2c3e50;
+      padding: 32px 10vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #ecf0f1;
+    }
+
+    footer a {
+      color: #ecf0f1;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: var(--cyan); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { top: 16px; padding: 6px 8px; }
+      nav a { padding: 7px 13px; font-size: 12px; }
+
+      .hero { padding: 0 6vw; padding-top: 100px; }
+      .section-intro { grid-template-columns: 1fr; gap: 40px; padding: 60px 6vw; }
+      footer { flex-direction: column; gap: 8px; padding: 24px 6vw; text-align: center; }
+    }
+
+    /* ── Stats bar ── */
+    .stats {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0 10vw;
+    }
+
+    .stat-item {
+      flex: 1;
+      padding: 20px 0;
+      border-right: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .stat-item:last-child { border-right: none; }
+    .stat-item:nth-child(1) { animation-delay: 0.7s; }
+    .stat-item:nth-child(2) { animation-delay: 0.8s; }
+    .stat-item:nth-child(3) { animation-delay: 0.9s; }
+    .stat-item:nth-child(4) { animation-delay: 1.0s; }
+
+    .stat-line {
+      width: 32px;
+      height: 3px;
+      background: var(--cyan);
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Hi, I'm Siphelele Mbanjwa</h1>
-    <p>Aspiring Software Developer</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="About.html">About</a>
-      <a href="Projects.html">Projects</a>
-      <a href="Contact.html">Contact</a>
-    </nav>
-  </header>
 
-  <main class="main-home">
-    <section class="intro fade-in">
-      <h2>Welcome</h2>
-      <p>This is my modern and animated portfolio website. Explore more by using the navigation menu.</p>
-    </section>
-  </main>
+  <!-- ── Navigation ── -->
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="About.html">About</a>
+    <a href="Projects.html">Projects</a>
+    <a href="Contact.html">Contact</a>
+  </nav>
 
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <p class="hero-eyebrow">Available for opportunities</p>
+    <h1 class="hero-name">
+      Siphelele
+      <span class="accent">Mbanjwa</span>
+    </h1>
+    <p class="hero-tagline">
+      Aspiring software developer building clean, purposeful digital experiences from Durban, South Africa.
+    </p>
+    <div class="hero-cta">
+      <a href="Projects.html" class="btn-primary">
+        View Projects
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="Contact.html" class="btn-ghost">Get In Touch</a>
+    </div>
+
+  </section>
+
+  <!-- ── Stats ── -->
+  <div class="stats">
+    <div class="stat-item"></div>
+    <div class="stat-item"></div>
+    <div class="stat-item"></div>
+    <div class="stat-item"></div>
+  </div>
+
+  <!-- ── Intro Section ── -->
+  <section class="section-intro">
+    <div>
+      <p class="section-label">Who I Am</p>
+      <h2 class="section-heading">Building things that matter</h2>
+    </div>
+    <div class="section-body">
+      <p>
+        I'm a passionate developer focused on creating elegant, efficient solutions. I love turning complex problems into simple, beautiful interfaces.
+      </p>
+      <p>
+        Explore my work, learn about my background, or reach out — I'm always open to new ideas and collaborations.
+      </p>
+      <div class="tech-pills">
+        <span class="pill">JavaScript</span>
+        <span class="pill">HTML & CSS</span>
+        <span class="pill">Python</span>
+        <span class="pill">Git</span>
+        <span class="pill">React</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
   <footer>
-    <p>© 2025 Siphelele Mbanjwa. Built with ❤️</p>
+    <span>© 2025 Siphelele Mbanjwa</span>
+    <span>Built with ❤️ in Durban</span>
   </footer>
+
 </body>
 </html>

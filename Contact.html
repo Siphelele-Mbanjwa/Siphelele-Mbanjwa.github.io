@@ -3,32 +3,529 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact - Siphelele Mbanjwa</title>
+  <title>Contact — Siphelele Mbanjwa</title>
   <link rel="stylesheet" href="style.css"/>
   <script defer src="JavaScript/MyDemoPortfolio.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:           #f0f2f5;
+      --surface:      #ffffff;
+      --surface-2:    #e2e8f0;
+      --border:       rgba(0,0,0,0.08);
+      --cyan:         #307ecc;
+      --cyan-dim:     rgba(48, 126, 204, 0.10);
+      --white:        #333333;
+      --muted:        #666666;
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(48, 126, 204, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(48, 126, 204, 0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(48,126,204,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(48, 126, 204, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 12px;
+    }
+
+    nav a {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: #ecf0f1;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 100px;
+      transition: color 0.2s, background 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    nav a:hover { color: #ecf0f1; background: rgba(255,255,255,0.15); }
+    nav a.active { color: #ffffff; background: rgba(255,255,255,0.2); font-weight: 700; }
+
+    /* ── Page header ── */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      padding: 160px 10vw 80px;
+    }
+
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.1s;
+    }
+
+    .page-eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--cyan);
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.25s;
+    }
+
+    .page-title .accent { color: var(--cyan); }
+
+    /* ── Contact layout ── */
+    .contact-wrapper {
+      position: relative;
+      z-index: 1;
+      padding: 0 10vw 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* ── Left ── */
+    .contact-left {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .contact-intro {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 48px;
+      max-width: 400px;
+    }
+
+    .contact-channels {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .channel-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.25s, transform 0.25s, background 0.25s;
+    }
+
+    .channel-card:hover {
+      border-color: rgba(48,126,204,0.4);
+      background: var(--surface-2);
+      transform: translateX(6px);
+    }
+
+    .channel-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .channel-card.email .channel-icon {
+      background: var(--cyan-dim);
+      border: 1px solid rgba(48,126,204,0.2);
+    }
+
+    .channel-card.github .channel-icon {
+      background: rgba(48,126,204,0.08);
+      border: 1px solid rgba(48,126,204,0.15);
+    }
+
+    .channel-icon svg { width: 22px; height: 22px; }
+
+    .channel-info { flex: 1; }
+
+    .channel-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .channel-value {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: #333333;
+      transition: color 0.2s;
+    }
+
+    .channel-card:hover .channel-value { color: var(--cyan); }
+
+    .channel-arrow {
+      margin-left: auto;
+      flex-shrink: 0;
+      opacity: 0.3;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .channel-arrow svg { width: 16px; height: 16px; stroke: #333333; }
+    .channel-card:hover .channel-arrow { opacity: 1; transform: translateX(4px); }
+
+    /* ── Right ── */
+    .contact-right {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.55s;
+    }
+
+    .availability-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      margin-bottom: 16px;
+    }
+
+    .availability-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #16a34a;
+      background: rgba(22,163,74,0.1);
+      border: 1px solid rgba(22,163,74,0.2);
+      border-radius: 100px;
+      padding: 5px 12px;
+      margin-bottom: 24px;
+    }
+
+    .availability-dot::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #16a34a;
+      animation: pulse 2s infinite;
+    }
+
+    .availability-heading {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.5vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      line-height: 1.2;
+      color: #333333;
+    }
+
+    .availability-text {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .availability-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+
+    .availability-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .avail-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .avail-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(22,163,74,0.1);
+      border: 1px solid rgba(22,163,74,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .avail-check svg { width: 10px; height: 10px; stroke: #16a34a; }
+
+    .response-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .response-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--cyan-dim);
+      border: 1px solid rgba(48,126,204,0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .response-icon svg { width: 18px; height: 18px; stroke: var(--cyan); }
+
+    .response-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .response-value {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: #333333;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: none;
+      background: #2c3e50;
+      padding: 32px 10vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #ecf0f1;
+    }
+
+    footer a { color: #ecf0f1; text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--cyan); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { top: 16px; padding: 6px 8px; }
+      nav a { padding: 7px 13px; font-size: 12px; }
+      .page-header { padding: 120px 6vw 48px; }
+      .contact-wrapper { grid-template-columns: 1fr; padding: 0 6vw 60px; gap: 40px; }
+      footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px 6vw; }
+    }
+  </style>
 </head>
 <body>
-  <header class="header">
-    <h1>Contact Me</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="About.html">About</a>
-      <a href="Projects.html">Projects</a>
-      <a href="Contact.html">Contact</a>
-    </nav>
-  </header>
 
-  <main class="main-content fade-in" id="contact">
-    <section>
-      <h2>Get In Touch</h2>
-      <p><strong>Email:</strong> <a href="mailto:siphelelembanjwa850@gmail.com">siphelelembanjwa850@gmail.com</a></p>
-      <p><strong>GitHub:</strong> <a href="https://github.com/Siphelele-Mbanjwa/Siphelele-Mbanjwa.github.io" target="_blank">Siphelele-Mbanjwa</a></p>
-    </section>
-  </main>
+  <!-- ── Navigation ── -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="About.html">About</a>
+    <a href="Projects.html">Projects</a>
+    <a href="Contact.html" class="active">Contact</a>
+  </nav>
 
+  <!-- ── Page Header ── -->
+  <div class="page-header">
+    <p class="page-eyebrow">Let's connect</p>
+    <h1 class="page-title">Get In <span class="accent">Touch</span></h1>
+  </div>
+
+  <!-- ── Contact Grid ── -->
+  <div class="contact-wrapper">
+
+    <!-- Left: channels -->
+    <div class="contact-left">
+      <p class="contact-intro">
+        Have a project in mind, want to collaborate, or just want to say hello? I'd love to hear from you. Pick your preferred channel below.
+      </p>
+
+      <div class="contact-channels">
+
+        <!-- Email -->
+        <a class="channel-card email" href="mailto:siphelelembanjwa850&#64;gmail.com" aria-label="Send an email">
+          <div class="channel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke="#307ecc">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+          </div>
+          <div class="channel-info">
+            <div class="channel-label">Email</div>
+            <div class="channel-value">siphelelembanjwa850&#64;gmail.com</div>
+          </div>
+          <div class="channel-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- GitHub -->
+        <a class="channel-card github" href="https://github.com/Siphelele-Mbanjwa/Siphelele-Mbanjwa.github.io" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub profile">
+          <div class="channel-icon">
+            <svg viewBox="0 0 24 24" fill="#333333">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+          </div>
+          <div class="channel-info">
+            <div class="channel-label">GitHub</div>
+            <div class="channel-value">Siphelele-Mbanjwa</div>
+          </div>
+          <div class="channel-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Right: availability -->
+    <div class="contact-right">
+
+      <div class="availability-card">
+        <div class="availability-dot">Available for work</div>
+        <h2 class="availability-heading">Open to new opportunities</h2>
+        <p class="availability-text">
+          I'm currently looking for internships, junior roles, and freelance projects where I can contribute and keep growing as a developer.
+        </p>
+        <div class="availability-divider"></div>
+        <div class="availability-list">
+          <div class="avail-row">
+            <div class="avail-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+            </div>
+            Internships &amp; graduate roles
+          </div>
+          <div class="avail-row">
+            <div class="avail-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+            </div>
+            Freelance &amp; contract work
+          </div>
+          <div class="avail-row">
+            <div class="avail-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+            </div>
+            Open source collaborations
+          </div>
+        </div>
+      </div>
+
+      <div class="response-card">
+        <div class="response-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <div>
+          <div class="response-label">Typical response time</div>
+          <div class="response-value">Within 24 hours</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
   <footer>
-    <p>© 2025 Siphelele Mbanjwa. Built with ❤️</p>
+    <span>&#169; 2025 Siphelele Mbanjwa</span>
+    <span>Built with &#10084;&#65039; in Durban</span>
   </footer>
+
 </body>
 </html>
