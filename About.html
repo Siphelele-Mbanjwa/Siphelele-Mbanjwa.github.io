@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — Siphelele Mbanjwa</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
   <script defer src="JavaScript/MyDemoPortfolio.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
-      --bg:           #f0f2f5;
-      --surface:      #ffffff;
-      --surface-2:    #e2e8f0;
-      --border:       rgba(0,0,0,0.08);
-      --cyan:         #307ecc;
-      --cyan-dim:     rgba(48, 126, 204, 0.10);
-      --white:        #333333;
-      --muted:        #666666;
+      --bg: #f0f2f5;
+      --surface: #ffffff;
+      --surface-2: #e2e8f0;
+      --border: rgba(0, 0, 0, 0.08);
+      --cyan: #307ecc;
+      --cyan-dim: rgba(48, 126, 204, 0.10);
+      --white: #333333;
+      --muted: #666666;
       --font-display: 'Syne', sans-serif;
-      --font-body:    'DM Sans', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background: var(--bg);
@@ -75,8 +86,16 @@
       letter-spacing: 0.02em;
     }
 
-    nav a:hover { color: #ecf0f1; background: rgba(255,255,255,0.15); }
-    nav a.active { color: #ffffff; background: rgba(255,255,255,0.2); font-weight: 700; }
+    nav a:hover {
+      color: #ecf0f1;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    nav a.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.2);
+      font-weight: 700;
+    }
 
     /* ── Page header ── */
     .page-header {
@@ -116,7 +135,9 @@
       animation: fadeUp 0.8s ease forwards 0.25s;
     }
 
-    .page-title .accent { color: var(--cyan); }
+    .page-title .accent {
+      color: var(--cyan);
+    }
 
     /* ── Main layout ── */
     .about-grid {
@@ -156,7 +177,7 @@
       object-position: center top;
       border: 3px solid var(--cyan);
       display: block;
-      box-shadow: 0 4px 20px rgba(48,126,204,0.25);
+      box-shadow: 0 4px 20px rgba(48, 126, 204, 0.25);
     }
 
     .avatar-placeholder {
@@ -176,8 +197,16 @@
       transition: background 0.2s;
     }
 
-    .avatar-placeholder:hover { background: rgba(48,126,204,0.18); }
-    .avatar-placeholder svg { width: 28px; height: 28px; stroke: var(--cyan); }
+    .avatar-placeholder:hover {
+      background: rgba(48, 126, 204, 0.18);
+    }
+
+    .avatar-placeholder svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--cyan);
+    }
+
     .avatar-placeholder span {
       font-size: 10px;
       font-weight: 600;
@@ -239,7 +268,11 @@
       flex-shrink: 0;
     }
 
-    .meta-icon svg { width: 14px; height: 14px; stroke: var(--cyan); }
+    .meta-icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--cyan);
+    }
 
     /* ── Content side ── */
     .about-content {
@@ -277,7 +310,9 @@
       font-weight: 300;
     }
 
-    .block-text p + p { margin-top: 14px; }
+    .block-text p+p {
+      margin-top: 14px;
+    }
 
     /* ── Skills grid ── */
     .skills-grid {
@@ -296,7 +331,7 @@
     }
 
     .skill-card:hover {
-      border-color: rgba(48,126,204,0.25);
+      border-color: rgba(48, 126, 204, 0.25);
       transform: translateY(-2px);
     }
 
@@ -342,7 +377,9 @@
       position: relative;
     }
 
-    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
 
     .timeline-line {
       display: flex;
@@ -369,7 +406,9 @@
       margin-top: 6px;
     }
 
-    .timeline-item:last-child .timeline-connector { display: none; }
+    .timeline-item:last-child .timeline-connector {
+      display: none;
+    }
 
     .timeline-body {}
 
@@ -397,7 +436,8 @@
     footer {
       position: relative;
       z-index: 1;
-      border-top: none; background: #2c3e50;
+      border-top: none;
+      background: #2c3e50;
       padding: 32px 10vw;
       display: flex;
       justify-content: space-between;
@@ -406,24 +446,64 @@
       color: var(--muted);
     }
 
-    footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    footer a:hover { color: var(--cyan); }
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--cyan);
+    }
 
     /* ── Animations ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
-      nav { top: 16px; padding: 6px 8px; }
-      nav a { padding: 7px 13px; font-size: 12px; }
-      .page-header { padding: 120px 6vw 48px; }
-      .about-grid { grid-template-columns: 1fr; padding: 0 6vw 60px; }
-      .identity-card { position: static; }
-      .skills-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px 6vw; }
+      nav {
+        top: 16px;
+        padding: 6px 8px;
+      }
+
+      nav a {
+        padding: 7px 13px;
+        font-size: 12px;
+      }
+
+      .page-header {
+        padding: 120px 6vw 48px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        padding: 0 6vw 60px;
+      }
+
+      .identity-card {
+        position: static;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        padding: 24px 6vw;
+      }
     }
 
     /* ── CV Download Button ── */
@@ -458,6 +538,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- ── Navigation ── -->
@@ -481,15 +562,15 @@
     <aside>
       <div class="identity-card">
         <div class="avatar-wrapper">
-          <img class="avatar-img" src="Images/20250822_073437.jpg" alt="Siphelele Mbanjwa"/>
+          <img class="avatar-img" src="Images/20250822_073437.jpg" alt="Siphelele Mbanjwa" />
         </div>
         <div class="identity-name">Siphelele Mbanjwa</div>
         <div class="identity-role">Aspiring Software Developer</div>
 
         <a href="assets\Siphelele Mbanjwa CV.pdf" download class="cv-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 15V3m0 12-4-4m4 4 4-4"/>
-            <path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/>
+            <path d="M12 15V3m0 12-4-4m4 4 4-4" />
+            <path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17" />
           </svg>
           Download CV
         </a>
@@ -500,8 +581,8 @@
           <div class="meta-row">
             <div class="meta-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-                <circle cx="12" cy="9" r="2.5"/>
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                <circle cx="12" cy="9" r="2.5" />
               </svg>
             </div>
             Durban, South Africa
@@ -509,9 +590,9 @@
           <div class="meta-row">
             <div class="meta-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 10.5V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                <path d="M16 19h6M19 16v6"/>
+                <path d="M22 10.5V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                <path d="M16 19h6M19 16v6" />
               </svg>
             </div>
             Open to opportunities
@@ -519,8 +600,9 @@
           <div class="meta-row">
             <div class="meta-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
+                <path
+                  d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
               </svg>
             </div>
             Studying Software Dev
@@ -537,8 +619,10 @@
         <p class="block-label">Background</p>
         <h2 class="block-heading">Passionate about building real things</h2>
         <div class="block-text">
-          <p>Hello! I'm Siphelele Mbanjwa — a passionate aspiring software developer currently studying software development. I believe great software is built at the intersection of logic and creativity.</p>
-          <p>I'm actively building real-world projects to grow my skills and gain hands-on experience. Every project I take on is an opportunity to learn something new and push my abilities further.</p>
+          <p>Hello! I'm Siphelele Mbanjwa — a passionate aspiring software developer currently studying software
+            development. I believe great software is built at the intersection of logic and creativity.</p>
+          <p>I'm actively building real-world projects to grow my skills and gain hands-on experience. Every project I
+            take on is an opportunity to learn something new and push my abilities further.</p>
         </div>
       </div>
 
@@ -550,32 +634,44 @@
           <div class="skill-card">
             <div class="skill-name">JavaScript</div>
             <div class="skill-level">Intermediate</div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 65%"></div></div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="width: 65%"></div>
+            </div>
           </div>
           <div class="skill-card">
             <div class="skill-name">C#</div>
             <div class="skill-level">Learning</div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 45%"></div></div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="width: 45%"></div>
+            </div>
           </div>
           <div class="skill-card">
             <div class="skill-name">HTML & CSS</div>
             <div class="skill-level">Comfortable</div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 75%"></div></div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="width: 75%"></div>
+            </div>
           </div>
           <div class="skill-card">
             <div class="skill-name">SQL</div>
             <div class="skill-level">Learning</div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 40%"></div></div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="width: 40%"></div>
+            </div>
           </div>
           <div class="skill-card">
             <div class="skill-name">Python</div>
             <div class="skill-level">Beginner</div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 35%"></div></div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="width: 35%"></div>
+            </div>
           </div>
           <div class="skill-card">
             <div class="skill-name">Git</div>
             <div class="skill-level">Comfortable</div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div>
+            <div class="skill-bar">
+              <div class="skill-fill" style="width: 60%"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -591,8 +687,9 @@
               <div class="timeline-connector"></div>
             </div>
             <div class="timeline-body">
-                            <div class="timeline-title">Started Software Development</div>
-              <div class="timeline-sub">Enrolled in a software development programme and wrote my first lines of code.</div>
+              <div class="timeline-title">Started Software Development</div>
+              <div class="timeline-sub">Enrolled in a software development programme and wrote my first lines of code.
+              </div>
             </div>
           </div>
           <div class="timeline-item">
@@ -601,8 +698,9 @@
               <div class="timeline-connector"></div>
             </div>
             <div class="timeline-body">
-                            <div class="timeline-title">Launched Portfolio</div>
-              <div class="timeline-sub">Created this portfolio to showcase my growth and connect with the developer community.</div>
+              <div class="timeline-title">Launched Portfolio</div>
+              <div class="timeline-sub">Created this portfolio to showcase my growth and connect with the developer
+                community.</div>
             </div>
           </div>
         </div>
@@ -614,7 +712,6 @@
   <!-- ── Footer ── -->
   <footer>
     <span>© 2025 Siphelele Mbanjwa</span>
-    <span>Built with ❤️ in Durban</span>
   </footer>
 
   <script>
@@ -633,4 +730,5 @@
     }
   </script>
 </body>
+
 </html>
